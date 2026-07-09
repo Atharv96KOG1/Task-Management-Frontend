@@ -18,7 +18,6 @@ export async function getTaskById(id: string) {
   const response = await fetch(`${BASE_URl}/${id}`, {
     method: "GET",cache: "no-store",
   });
-
   if (!response.ok) {
     throw new Error("Task not found");
   }
