@@ -2,7 +2,7 @@
 
 import { Spinner } from "@heroui/react";
 import TaskCard from "./TaskCard";
-import { useTasks } from "@/hooks/useTasks";
+import { useTasks } from "@/hooks/usetasks";
 export default function TaskList() {
   const { tasks, loading, error } = useTasks();
 
@@ -26,7 +26,7 @@ export default function TaskList() {
           No Tasks Found
         </h2>
         <p className="text-gray-500 mt-2">
-          Click "Add Task" to create your first task.
+          Click `Add Task` to create your first task.
         </p>
       </div>
     );

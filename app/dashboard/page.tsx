@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import { useState } from "react";
 import AppNavbar from "@/components/AppNavbar";
 import SearchBar from "@/components/SearchBar";
 import FilterButtons from "@/components/FilterButtons";
@@ -10,33 +10,77 @@ import { Plus } from "lucide-react";
 
 export default function DashboardPage() {
   const [search, setSearch] = useState("");
-  const [filter , setfilter] = useState<"all" | "pending"|"completed">("all");
+  const [filter, setFilter] = useState<
+    "all" | "pending" | "completed"
+  >("all");
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100">
+    <main
+      className="min-h-screen
+        bg-gradient-to-br
+        from-slate-100
+        via-blue-50
+        to-indigo-100
+        dark:from-slate-950
+        dark:via-slate-900
+        dark:to-slate-800
+        transition-all
+        duration-500
+      "
+    >
       <AppNavbar />
+
       <div className="max-w-7xl mx-auto px-6 py-10">
+        {/* Heading */}
         <div className="mb-10">
-          <h1 className="text-5xl font-extrabold text-gray-800">
+          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
             Welcome Back...
           </h1>
-          <p className="mt-3 text-lg text-gray-500">
+
+          <p className="mt-3 text-lg text-slate-600 dark:text-slate-300 transition-colors">
             Organize your work and achieve more.
           </p>
-    </div>
+        </div>
 
-        <div className="flex flex-col lg:flex-row gap-5 justify-between items-center">
-          <SearchBar  value={search} onChange={setSearch}/>
-          <Button color="primary" size="lg" startContent={<Plus size={20} />} className="font-semibold shadow-lg hover:scale-105 transition">
-            Add Task
+        {/* Search + Button */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <SearchBar
+            value={search}
+            onChange={setSearch}
+          />
+
+          <Button
+            className="
+              h-12
+              px-7
+              rounded-xl
+              bg-gradient-to-r
+              from-blue-600
+              via-indigo-600
+              to-purple-600
+              text-white
+              font-semibold
+              shadow-lg
+              hover:scale-105
+              hover:shadow-2xl
+              active:scale-95
+              transition-all
+              duration-300">
+            <div className="flex items-center gap-2">
+              <Plus size={18} strokeWidth={2.5} />
+              <span>Add Task</span>
+            </div>
           </Button>
         </div>
-      <div className="mt-8">
-          <FilterButtons selected={filter} onSelect={setfilter}/>
-      </div>
 
-      <div className="mt-10">
-      <TaskList />
-      </div>
+        <div className="mt-10">
+          <FilterButtons
+            selected={filter}
+            onSelect={setFilter}
+          />
+        </div>
+        <div className="mt-10">
+          <TaskList search={search} filter={filter}/>
+        </div>
       </div>
     </main>
   );

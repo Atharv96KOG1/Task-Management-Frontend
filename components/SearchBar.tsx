@@ -1,30 +1,33 @@
 "use client";
 
-import { Input } from "@heroui/react";
 import { Search } from "lucide-react";
 
-interface Searchbarprops {
+interface SearchBarProps {
   value?: string;
   onChange?: (value: string) => void;
 }
+
 export default function SearchBar({
-    value = "",
-   onChange,
-}: Searchbarprops) {
+  value = "",
+  onChange,
+}: SearchBarProps) {
   return (
-    <div className="w-full lg:max-w-xl">
-      <Input value={value} onValueChange={onChange} type="text" placeholder="Search by title..." size="lg" variant="bordered" radius="lg"
-     startContent={<Search size={20} className="text-gray-400 pointer-events-none"/>}
-    classNames={{
-        label: "text-lg font-semibold text-gray-700",
-          input: "text-gray-700 placeholder:text-gray-400",
-        inputWrapper:
-            "bg-white border border-gray-200 shadow-md hover:border-blue-500 focus-within:border-blue-600 transition-all duration-300",
-        }}/>
-        
-      <p className="mt-2 text-sm text-gray-500">
-        Search tasks by title
-      </p>
+    <div className="w-full max-w-md">
+      <h2 className="text-2xl font-bold text-slate-800 mb-4">
+        Search Tasks
+      </h2>
+
+      <div className="flex items-center gap-3 bg-slate-800 rounded-full px-5 h-12 shadow-lg border border-slate-700 hover:border-blue-500 transition-all duration-300">
+        <Search className="w-5 h-5 text-slate-400" />
+
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange?.(e.target.value)}
+          placeholder="Search by title..."
+          className="flex-1 bg-transparent outline-none text-white placeholder:text-slate-400 text-sm"
+        />
+      </div>
     </div>
   );
 }

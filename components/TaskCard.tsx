@@ -2,7 +2,7 @@
 
 import {Card,CardHeader,CardBody,CardFooter,Button,Chip,} from "@heroui/react";
 import {Pencil,Trash2,CheckCircle,CalendarDays,} from "lucide-react";
-import { Task } from "@/hooks/useTasks";
+import { Task } from "@/hooks/usetasks";
 
 interface TaskCardProps {
   task: Task;
@@ -25,21 +25,16 @@ export default function TaskCard({ task }: TaskCardProps) {
         </Chip>
       </CardHeader>
 
-
       <CardBody>
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <CalendarDays size={16} />
-
           <span>
             {new Date(task.createdAt).toLocaleDateString()}
           </span>
         </div>
       </CardBody>
 
-      {/* Footer */}
-
       <CardFooter className="flex justify-between gap-2">
-
         <Button color="primary" variant="flat" startContent={<Pencil size={18} />}>
           Edit 
         </Button>
