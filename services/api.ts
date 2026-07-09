@@ -6,71 +6,37 @@ export interface Taskpayload{
     completed?:boolean;
 }
 
-export async function getTasks(){
-    const response = await fetch(BASE_URl , {    method: "GET",cache: "no-store",});
-    if(!response.ok){
-    throw new Error("Failed to fetch tasks.");
+async function request(url: string, options: RequestInit = {}, errorMessage = "Request failed") {
+    const response = await fetch(url, {
+        ...options,
+        headers: options.body ? { "Content-Type": "application/json" } : undefined,
+    });
+    if (!response.ok) {
+        throw new Error(errorMessage);
     }
     return response.json();
 }
 
-export async function getTaskById(id: string) {
-  const response = await fetch(`${BASE_URl}/${id}`, {
-    method: "GET",cache: "no-store",
-  });
-  if (!response.ok) {
-    throw new Error("Task not found");
-  }
-
-  return response.json();
+export function getTasks() {
+    return request(BASE_URl, { method: "GET", cache: "no-store" }, "Failed to fetch tasks.");
 }
 
-export async function createTask(task:Taskpayload) {
-  const response = await fetch(BASE_URl, {method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(task),
-  });
-  if (!response.ok) {
-    throw new Error("Failed to create task");
-  }
-  return response.json();
+export function getTaskById(id: string) {
+    return request(`${BASE_URl}/${id}`, { method: "GET", cache: "no-store" }, "Task not found");
 }
 
-export async function updateTask(
-  id: string,
-  task: Partial<Taskpayload>
-) {
-  const response = await fetch(`${BASE_URl}/${id}`, {method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(task),
-  });
-  if (!response.ok) {
-    throw new Error("Failed to update task");
-  }
-  return response.json();
+export function createTask(task: Taskpayload) {
+    return request(BASE_URl, { method: "POST", body: JSON.stringify(task) }, "Failed to create task");
 }
 
-export async function deleteTask(id: string) {
-  const response = await fetch(`${BASE_URl}/${id}`, {method: "DELETE",});
-  if (!response.ok) {
-    throw new Error("Failed to delete task");
-  }
-  return response.json();
+export function updateTask(id: string, task: Partial<Taskpayload>) {
+    return request(`${BASE_URl}/${id}`, { method: "PUT", body: JSON.stringify(task) }, "Failed to update task");
 }
 
-export async function completeTask(id: string) {
-  const response = await fetch(`${BASE_URl}/${id}`, {method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({completed: true,}),
-  });
-  if (!response.ok) {
-    throw new Error("Failed to complete task");
-  }
-  return response.json();
+export function deleteTask(id: string) {
+    return request(`${BASE_URl}/${id}`, { method: "DELETE" }, "Failed to delete task");
+}
+
+export function completeTask(id: string) {
+    return updateTask(id, { completed: true });
 }

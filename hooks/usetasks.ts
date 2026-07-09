@@ -21,6 +21,12 @@ export function useTasks(){
         try{
             setLoading(true);
             const data = await getTasks();
+            if(!Array.isArray(data)){
+                console.error("Unexpected /api/tasks response shape:", data);
+                setTasks([]);
+                setError("failed to load tasks.");
+                return;
+            }
             setTasks(data);
             setError("");
         } catch (err){
@@ -33,23 +39,23 @@ export function useTasks(){
     },[]);
 
     const addTask = async (title:string , description:string)=>{
-       await createTask({title,description});
-      fetchTasks();
+       const newTask = await createTask({title,description});
+       setTasks((prev)=>[...prev,newTask]);
     };
 
     const removeTask = async(id:string)=>{
         await deleteTask(id);
-        fetchTasks();
+        setTasks((prev)=>prev.filter((task)=>task._id!==id));
     };
 
     const editTask = async(id:string,updatedTask:Partial<Task>)=>{
-        await updateTask(id,updatedTask);
-        fetchTasks();
+        const savedTask = await updateTask(id,updatedTask);
+        setTasks((prev)=>prev.map((task)=>(task._id===id?savedTask:task)));
     };
 
     const completeTask = async(id:string)=>{
-        await updateTask(id,{completed:true});
-        fetchTasks();
+        const savedTask = await updateTask(id,{completed:true});
+        setTasks((prev)=>prev.map((task)=>(task._id===id?savedTask:task)));
     };
 
     useEffect(()=>{

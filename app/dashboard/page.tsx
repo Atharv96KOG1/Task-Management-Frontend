@@ -7,7 +7,6 @@ import TaskList from "@/components/TaskList";
 import { Button } from "@heroui/react";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Addtask from "@/app/Addtask/page"
 
 export default function DashboardPage() {
   const router = useRouter();

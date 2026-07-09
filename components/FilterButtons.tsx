@@ -36,11 +36,10 @@ export default function FilterButtons({
         const isSelected = selected === filter.id;
         return (
           <Button key={filter.id} startContent={filter.icon}  radius="full" onPress={() => onSelect(filter.id)}
-      className={`px-6 h-11 font-semibold flex items-center justify-center transition-all duration-300 dark:bg-gray-100 dark:text-gray-800
-              ${
+      className={`px-6 h-11 font-semibold flex items-center justify-center transition-all duration-300 ${
                 isSelected
-                  ? "bg-blue-600 text-white shadow-lg scale-105 hover:bg-blue-700 dark:bg-blue-700"
-                  : "bg-slate-800 text-white border border-slate-700 hover:bg-slate-300 hover:scale-105"
+                  ? "bg-blue-600 dark:bg-blue-700 text-white shadow-lg scale-105 hover:bg-blue-700"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white border border-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-105"
               }`}>
             {filter.label}
           </Button>

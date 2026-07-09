@@ -64,23 +64,23 @@ export default function Addtask() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <Input
-            className="w-full size={lg}"
+            className="w-full" size="lg" 
               label="Title"
               placeholder="Enter task title"
               value={title}
               onValueChange={setTitle}
               isRequired
-              variant="bordered"
-            />
+              variant="bordered"/>
+
             <Textarea
               label="Description"
+              className="text-bold"
               placeholder="Enter task description"
               value={description}
               onValueChange={setDescription}
               variant="bordered"
               minRows={4}
             />
-
             {error && (
               <p className="text-sm text-red-500">{error}</p>
             )}

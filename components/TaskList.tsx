@@ -12,7 +12,7 @@ export default function TaskList({
   search,
   filter,
 }: TaskListProps) {
-  const { tasks, loading, error } = useTasks();
+  const { tasks, loading, error, editTask, removeTask } = useTasks();
   const filteredTasks = tasks.filter((task) => {
   const matchessearch = task.title.toLowerCase().includes(search.toLowerCase());
 
@@ -51,7 +51,12 @@ export default function TaskList({
   return (
     <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
       {filteredTasks.map((task) => (
-        <TaskCard key={task._id} task={task} />
+        <TaskCard
+          key={task._id}
+          task={task}
+          onEdit={editTask}
+          onDelete={removeTask}
+        />
       ))}
     </div>
   );

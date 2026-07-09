@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Avatar, Button } from "@heroui/react";
+import { Avatar } from "@heroui/react";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
