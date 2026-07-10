@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import AppNavbar from "@/components/AppNavbar";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
     <>
-      <AppNavbar />
+      <Navbar />
 
       <section id="Home" className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-950 dark:to-slate-900 flex items-center transition-colors duration-500">
         <div className="max-w-7xl mx-auto px-8 py-20 grid md:grid-cols-2 gap-16 items-center">
