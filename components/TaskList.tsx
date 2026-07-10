@@ -12,16 +12,12 @@ export default function TaskList({
   search,
   filter,
 }: TaskListProps) {
-  const { tasks, loading, error, editTask, removeTask } = useTasks();
+  const { tasks, loading, error, editTask, removeTask, completeTask } = useTasks();
   const filteredTasks = tasks.filter((task) => {
   const matchessearch = task.title.toLowerCase().includes(search.toLowerCase());
 
     const matchesFilter =
-      filter === "all"
-        ? true
-        : filter === "completed"
-        ? task.completed
-        : !task.completed;
+      filter === "all" ? true : filter === "completed" ? !!task.completedAt : !task.completedAt;
 
     return matchessearch && matchesFilter;
   });
@@ -56,6 +52,7 @@ export default function TaskList({
           task={task}
           onEdit={editTask}
           onDelete={removeTask}
+          onComplete={completeTask}
         />
       ))}
     </div>

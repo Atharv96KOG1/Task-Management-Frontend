@@ -1,17 +1,14 @@
 "use client";
 
 import { useEffect , useState  , useCallback} from "react";
-import {getTasks , createTask, updateTask , deleteTask,} from "@/services/api";
-
+import {getTasks , createTask, updateTask , deleteTask, completeTask as completeTaskApi,} from "@/services/api";
 export interface Task{
     _id:string;
     title:string;
     description:string;
-    completed:boolean;
+    completedAt:string | null;
     createdAt:string;
-    updatedAt:string;
 }
-
 export function useTasks(){
     const[tasks, setTasks] = useState<Task[]>([]);
     const [loading , setLoading] = useState(false);
@@ -54,7 +51,7 @@ export function useTasks(){
     };
 
     const completeTask = async(id:string)=>{
-        const savedTask = await updateTask(id,{completed:true});
+        const savedTask = await completeTaskApi(id);
         setTasks((prev)=>prev.map((task)=>(task._id===id?savedTask:task)));
     };
 

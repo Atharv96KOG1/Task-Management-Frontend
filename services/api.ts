@@ -1,9 +1,8 @@
-const BASE_URl = "http://localhost:5000/api/tasks";
+const BASE_URl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/tasks";
 
 export interface Taskpayload{
     title:string;
     description:string;
-    completed?:boolean;
 }
 
 async function request(url: string, options: RequestInit = {}, errorMessage = "Request failed") {
@@ -12,7 +11,8 @@ async function request(url: string, options: RequestInit = {}, errorMessage = "R
         headers: options.body ? { "Content-Type": "application/json" } : undefined,
     });
     if (!response.ok) {
-        throw new Error(errorMessage);
+        const body = await response.json().catch(() => null);
+        throw new Error(body?.message || errorMessage);
     }
     return response.json();
 }
@@ -38,5 +38,5 @@ export function deleteTask(id: string) {
 }
 
 export function completeTask(id: string) {
-    return updateTask(id, { completed: true });
+    return request(`${BASE_URl}/${id}/complete`, { method: "PATCH" }, "Failed to complete task");
 }
