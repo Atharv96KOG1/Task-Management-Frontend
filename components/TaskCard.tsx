@@ -50,6 +50,7 @@ export default function TaskCard({ task, onEdit, onDelete, onComplete }: TaskCar
       <CardHeader className="flex justify-between items-start gap-2">
         {!isEditing && (
           <Checkbox
+            data-testid="task-checkbox"
             isSelected={isCompleted}
             isDisabled={isCompleted}
             color="primary"
@@ -64,6 +65,7 @@ export default function TaskCard({ task, onEdit, onDelete, onComplete }: TaskCar
         <div className="flex-1">
           {isEditing ? (
             <Input
+              data-testid="task-title-input"
               value={title}
               onValueChange={setTitle}
               size="sm"
@@ -83,6 +85,7 @@ export default function TaskCard({ task, onEdit, onDelete, onComplete }: TaskCar
           )}
           {isEditing ? (
             <Textarea
+              data-testid="task-description-textarea"
               value={description}
               onValueChange={setDescription}
               size="sm"
@@ -119,19 +122,19 @@ export default function TaskCard({ task, onEdit, onDelete, onComplete }: TaskCar
       <CardFooter className="flex justify-between gap-2">
         {isEditing ? (
           <>
-            <Button color="success" variant="flat" startContent={<Check size={18} />} onPress={handleSave}>
+            <Button data-testid="task-save-button" color="success" variant="flat" startContent={<Check size={18} />} onPress={handleSave}>
               Save
             </Button>
-            <Button color="default" variant="flat" startContent={<X size={18} />} onPress={handleCancel}>
+            <Button data-testid="task-cancel-button" color="default" variant="flat" startContent={<X size={18} />} onPress={handleCancel}>
               Cancel
             </Button>
           </>
         ) : (
           <>
-            <Button color="primary" variant="flat" startContent={<Pencil size={18} />} onPress={() => setIsEditing(true)}>
+            <Button data-testid="task-edit-button" color="primary" variant="flat" startContent={<Pencil size={18} />} onPress={() => setIsEditing(true)}>
               Edit
             </Button>
-            <Button color="danger" variant="flat" startContent={<Trash2 size={18} />} onPress={handleDelete}>
+            <Button data-testid="task-delete-button" color="danger" variant="flat" startContent={<Trash2 size={18} />} onPress={handleDelete}>
               Delete
             </Button>
           </>
