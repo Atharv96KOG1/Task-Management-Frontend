@@ -36,11 +36,17 @@ export default function TaskList({
     );
   }
   if (filteredTasks.length === 0) {
+    const hasActiveFilters = search.trim().length > 0 || filter !== "all";
     return (
       <div className="text-center py-16">
         <h2 className="text-2xl font-semibold">
-          No Tasks Found
+          {hasActiveFilters ? "No Matching Tasks" : "No Tasks Found"}
         </h2>
+        {hasActiveFilters && (
+          <p className="text-slate-500 dark:text-slate-400 mt-2">
+            Try adjusting your search or filter.
+          </p>
+        )}
       </div>
     );
   }
