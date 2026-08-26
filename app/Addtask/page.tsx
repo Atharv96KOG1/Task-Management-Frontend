@@ -7,6 +7,8 @@ import { ArrowLeft, ListTodo } from "lucide-react";
 import AppNavbar from "@/components/AppNavbar";
 import { useTasks } from "@/hooks/usetasks";
 
+const MAX_TITLE_LENGTH = 100;
+
 export default function Addtask() {
   const router = useRouter();
   const { addTask } = useTasks();
@@ -20,6 +22,10 @@ export default function Addtask() {
     e.preventDefault();
     if (!title.trim()) {
       setError("Title is required.");
+      return;
+    }
+    if (title.trim().length > MAX_TITLE_LENGTH) {
+      setError(`Title must be ${MAX_TITLE_LENGTH} characters or fewer.`);
       return;
     }
     try {
