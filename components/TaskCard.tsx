@@ -24,6 +24,7 @@ interface TaskCardProps {
 
 export default function TaskCard({ task, onEdit, onDelete, onComplete }: TaskCardProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
   const isCompleted = !!task.completedAt;
@@ -39,10 +40,17 @@ export default function TaskCard({ task, onEdit, onDelete, onComplete }: TaskCar
     setIsEditing(false);
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Delete this task?")) {
-      onDelete(task._id);
-    }
+  const handleDeleteClick = () => {
+    setConfirmingDelete(true);
+  };
+
+  const handleConfirmDelete = () => {
+    onDelete(task._id);
+    setConfirmingDelete(false);
+  };
+
+  const handleCancelDelete = () => {
+    setConfirmingDelete(false);
   };
 
   return (
@@ -126,12 +134,26 @@ export default function TaskCard({ task, onEdit, onDelete, onComplete }: TaskCar
               Cancel
             </Button>
           </>
+        ) : confirmingDelete ? (
+          <>
+            <span className="text-sm text-gray-600 dark:text-slate-300 flex items-center">
+              Delete this task?
+            </span>
+            <div className="flex gap-2">
+              <Button color="danger" variant="flat" startContent={<Check size={18} />} onPress={handleConfirmDelete}>
+                Confirm
+              </Button>
+              <Button color="default" variant="flat" startContent={<X size={18} />} onPress={handleCancelDelete}>
+                Cancel
+              </Button>
+            </div>
+          </>
         ) : (
           <>
             <Button color="primary" variant="flat" startContent={<Pencil size={18} />} onPress={() => setIsEditing(true)}>
               Edit
             </Button>
-            <Button color="danger" variant="flat" startContent={<Trash2 size={18} />} onPress={handleDelete}>
+            <Button color="danger" variant="flat" startContent={<Trash2 size={18} />} onPress={handleDeleteClick}>
               Delete
             </Button>
           </>
